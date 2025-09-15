@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sito Modulare con Animazioni</title>
+    <title>Sorveglianza con Telecamere: Analisi e Prospettive</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         /* Reset e stili generali */
         * {
@@ -15,8 +16,8 @@
         }
         
         :root {
-            --primary-color: #3498db;
-            --secondary-color: #2c3e50;
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
             --accent-color: #e74c3c;
             --light-color: #f9f9f9;
             --dark-color: #333;
@@ -51,7 +52,7 @@
             text-align: center;
             font-size: 2.5rem;
             margin-bottom: 50px;
-            color: var(--secondary-color);
+            color: var(--primary-color);
             position: relative;
         }
         
@@ -63,19 +64,20 @@
             transform: translateX(-50%);
             width: 80px;
             height: 4px;
-            background-color: var(--primary-color);
+            background-color: var(--secondary-color);
             border-radius: 2px;
         }
         
         h3 {
             font-size: 1.8rem;
             margin-bottom: 20px;
-            color: var(--secondary-color);
+            color: var(--primary-color);
         }
         
         p {
             margin-bottom: 20px;
             font-size: 1.1rem;
+            line-height: 1.8;
         }
         
         /* Animazioni */
@@ -115,14 +117,14 @@
         .logo {
             font-size: 28px;
             font-weight: 700;
-            color: var(--secondary-color);
+            color: var(--primary-color);
             display: flex;
             align-items: center;
         }
         
         .logo i {
             margin-right: 10px;
-            color: var(--primary-color);
+            color: var(--secondary-color);
         }
         
         .nav-links {
@@ -136,7 +138,7 @@
         
         .nav-links a {
             text-decoration: none;
-            color: var(--secondary-color);
+            color: var(--primary-color);
             font-weight: 500;
             transition: color 0.3s;
             position: relative;
@@ -149,12 +151,12 @@
             left: 0;
             width: 0;
             height: 2px;
-            background-color: var(--primary-color);
+            background-color: var(--secondary-color);
             transition: width 0.3s;
         }
         
         .nav-links a:hover {
-            color: var(--primary-color);
+            color: var(--secondary-color);
         }
         
         .nav-links a:hover::after {
@@ -201,7 +203,7 @@
         .btn:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-            background-color: var(--primary-color);
+            background-color: var(--secondary-color);
             color: white;
         }
         
@@ -218,21 +220,21 @@
         }
         
         /* About Section */
-        .about {
+        .intro {
             background-color: #fff;
         }
         
-        .about-content {
+        .intro-content {
             display: flex;
             align-items: center;
             gap: 50px;
         }
         
-        .about-text {
+        .intro-text {
             flex: 1;
         }
         
-        .about-image {
+        .intro-image {
             flex: 1;
             height: 400px;
             background: linear-gradient(45deg, #e0e0e0, #f0f0f0);
@@ -243,136 +245,180 @@
             color: #999;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+            position: relative;
         }
         
-        .about-image i {
+        .intro-image i {
             font-size: 5rem;
-            color: var(--primary-color);
+            color: var(--secondary-color);
+            z-index: 2;
         }
         
-        /* Services Section */
-        .services {
+        .intro-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" stroke="%233498db" stroke-width="2" fill="none" /><circle cx="50" cy="50" r="30" stroke="%233498db" stroke-width="1" fill="none" /><circle cx="50" cy="50" r="20" stroke="%233498db" stroke-width="1" fill="none" /></svg>');
+            background-size: cover;
+            opacity: 0.1;
+        }
+        
+        /* Grafici e dati */
+        .charts {
             background-color: #f8f9fa;
         }
         
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        .chart-container {
+            display: flex;
+            flex-wrap: wrap;
             gap: 30px;
+            justify-content: center;
         }
         
-        .service-card {
-            background-color: #fff;
-            padding: 40px 30px;
+        .chart-box {
+            background: white;
+            padding: 25px;
             border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            flex: 1 1 400px;
+            max-width: 500px;
+        }
+        
+        .chart-title {
             text-align: center;
-        }
-        
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .service-card i {
-            font-size: 3rem;
-            color: var(--primary-color);
             margin-bottom: 20px;
+            color: var(--primary-color);
+            font-size: 1.3rem;
         }
         
-        .service-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-        }
-        
-        /* Team Section */
-        .team {
+        /* Sezione Cina */
+        .china {
             background-color: #fff;
         }
         
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+        .china-content {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
         }
         
-        .team-member {
+        .china-stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .stat-item {
             text-align: center;
-            padding: 30px;
+            padding: 20px;
+            background: #f8f9fa;
             border-radius: 10px;
+            flex: 1 1 200px;
+            max-width: 250px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--dark-color);
+        }
+        
+        /* Sezione AI */
+        .ai-system {
             background-color: #f8f9fa;
-            transition: all 0.3s;
         }
         
-        .team-member:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        .ai-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
         }
         
-        .member-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            background-color: #e0e0e0;
+        .ai-text {
+            flex: 1;
+        }
+        
+        .ai-image {
+            flex: 1;
+            height: 400px;
+            background: linear-gradient(45deg, #e0e0e0, #f0f0f0);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
+            color: #999;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .ai-image i {
+            font-size: 5rem;
+            color: var(--secondary-color);
+            z-index: 2;
+        }
+        
+        .ai-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M30,30 L70,30 L70,70 L30,70 Z" stroke="%233498db" stroke-width="2" fill="none" /><circle cx="50" cy="50" r="10" fill="%233498db" /></svg>');
+            background-size: cover;
+            opacity: 0.1;
+        }
+        
+        /* Sezione Italia */
+        .italy {
+            background-color: #fff;
+        }
+        
+        .italy-content {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
             overflow: hidden;
         }
         
-        .member-img i {
-            font-size: 4rem;
-            color: var(--primary-color);
+        .comparison-table th, .comparison-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
         }
         
-        .member-name {
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        
-        .member-role {
-            color: var(--primary-color);
-            margin-bottom: 15px;
-        }
-        
-        /* Testimonials Section */
-        .testimonials {
-            background: linear-gradient(to right, #2c3e50, #4a6580);
+        .comparison-table th {
+            background-color: var(--primary-color);
             color: white;
         }
         
-        .testimonials h2 {
-            color: white;
+        .comparison-table tr:nth-child(even) {
+            background-color: #f8f9fa;
         }
         
-        .testimonials h2::after {
-            background-color: white;
-        }
-        
-        .testimonial-slider {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        
-        .testimonial {
-            padding: 30px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            margin-bottom: 30px;
-            backdrop-filter: blur(5px);
-        }
-        
-        .testimonial-text {
-            font-style: italic;
-            margin-bottom: 20px;
-            font-size: 1.2rem;
-        }
-        
-        .testimonial-author {
-            font-weight: 700;
+        .comparison-table tr:hover {
+            background-color: #eef2f7;
         }
         
         /* Contact Section */
@@ -401,7 +447,7 @@
         
         .info-item i {
             font-size: 1.5rem;
-            color: var(--primary-color);
+            color: var(--secondary-color);
             margin-right: 15px;
             width: 30px;
         }
@@ -429,7 +475,7 @@
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: var(--primary-color);
+            border-color: var(--secondary-color);
         }
         
         .form-group textarea {
@@ -439,7 +485,7 @@
         
         /* Footer */
         footer {
-            background-color: var(--secondary-color);
+            background-color: var(--primary-color);
             color: #fff;
             padding: 70px 0 20px;
         }
@@ -478,7 +524,7 @@
         }
         
         .footer-links a:hover {
-            color: var(--primary-color);
+            color: var(--secondary-color);
         }
         
         .social-icons {
@@ -500,7 +546,7 @@
         }
         
         .social-icons a:hover {
-            background-color: var(--primary-color);
+            background-color: var(--secondary-color);
             transform: translateY(-3px);
         }
         
@@ -518,7 +564,7 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background-color: var(--primary-color);
+            background-color: var(--secondary-color);
             color: white;
             display: flex;
             align-items: center;
@@ -537,13 +583,13 @@
         }
         
         .back-to-top:hover {
-            background-color: var(--secondary-color);
+            background-color: var(--primary-color);
             transform: translateY(-5px);
         }
         
         /* Responsive */
         @media (max-width: 992px) {
-            .about-content {
+            .intro-content, .ai-content {
                 flex-direction: column;
             }
             
@@ -600,15 +646,15 @@
         <div class="container">
             <nav>
                 <div class="logo">
-                    <i class="fas fa-rocket"></i>
-                    <span>Il Tuo Brand</span>
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Sorveglianza e Sicurezza</span>
                 </div>
                 <ul class="nav-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">Chi Siamo</a></li>
-                    <li><a href="#services">Servizi</a></li>
-                    <li><a href="#team">Team</a></li>
-                    <li><a href="#testimonials">Testimonial</a></li>
+                    <li><a href="#intro">Introduzione</a></li>
+                    <li><a href="#charts">Dati</a></li>
+                    <li><a href="#china">Cina</a></li>
+                    <li><a href="#ai">Gestione AI</a></li>
+                    <li><a href="#italy">Italia</a></li>
                     <li><a href="#contact">Contatti</a></li>
                 </ul>
             </nav>
@@ -618,110 +664,167 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container">
-            <h1 class="hidden">Crea il Tuo Futuro con Noi</h1>
-            <p class="hidden">Un template pulito e professionale che puoi personalizzare facilmente con i tuoi contenuti.</p>
+            <h1 class="hidden">Sorveglianza con Telecamere: Sicurezza e Privacy</h1>
+            <p class="hidden">Analisi dell'impatto dei sistemi di sorveglianza sulla criminalità a livello globale e prospettive per l'Italia</p>
             <div class="btn-container">
-                <a href="#contact" class="btn hidden">Inizia Ora</a>
-                <a href="#about" class="btn btn-outline hidden">Scopri di Più</a>
+                <a href="#intro" class="btn hidden">Scopri di Più</a>
+                <a href="#italy" class="btn btn-outline hidden">Focus Italia</a>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section class="about" id="about">
+    <!-- Introduzione -->
+    <section class="intro" id="intro">
         <div class="container">
-            <h2 class="hidden">Chi Siamo</h2>
-            <div class="about-content">
-                <div class="about-text hidden">
-                    <h3>La Nostra Storia</h3>
-                    <p>Questo è un testo di esempio che puoi sostituire con la descrizione della tua azienda, della tua attività o di te stesso. Racconta la tua storia, la tua missione e i tuoi valori.</p>
-                    <p>Puoi modificare questo contenuto con qualsiasi testo desideri. Aggiungi dettagli rilevanti che possano interessare i tuoi visitatori e farli sentire connessi con il tuo brand.</p>
-                    <p>Non aver paura di condividere i tuoi successi e le tue sfide. I clienti apprezzano la trasparenza e l'autenticità.</p>
+            <h2 class="hidden">Sorveglianza e Criminalità</h2>
+            <div class="intro-content">
+                <div class="intro-text hidden">
+                    <h3>L'impatto della sorveglianza video sulla sicurezza</h3>
+                    <p>I sistemi di sorveglianza con telecamere stanno rivoluzionando la sicurezza pubblica in tutto il mondo. L'analisi dei dati dimostra una correlazione significativa tra l'implementazione di questi sistemi e la riduzione dei tassi di criminalità.</p>
+                    <p>Nei paesi che hanno investito massicciamente in tecnologie di sorveglianza, si registra una diminuzione fino al 40% dei reati predatori come furti, rapine e scippi. L'effetto deterrente delle telecamere è particolarmente efficace nei luoghi pubblici e ad alto traffico.</p>
+                    <p>Tuttavia, l'implementazione di questi sistemi solleva importanti questioni relative alla privacy e al bilanciamento tra sicurezza individuale e collettiva, temi che richiedono un'attenta regolamentazione.</p>
                 </div>
-                <div class="about-image hidden">
-                    <i class="fas fa-lightbulb"></i>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section class="services" id="services">
-        <div class="container">
-            <h2 class="hidden">I Nostri Servizi</h2>
-            <div class="services-grid">
-                <div class="service-card hidden">
-                    <i class="fas fa-paint-brush"></i>
-                    <h3>Web Design</h3>
-                    <p>Creazione di siti web moderni, responsive e accattivanti che rappresentano perfettamente il tuo brand e attirano i tuoi clienti ideali.</p>
-                </div>
-                <div class="service-card hidden">
-                    <i class="fas fa-code"></i>
-                    <h3>Sviluppo Web</h3>
-                    <p>Sviluppo di applicazioni web personalizzate e funzionali, con tecnologie all'avanguardia e soluzioni scalabili per le tue esigenze.</p>
-                </div>
-                <div class="service-card hidden">
-                    <i class="fas fa-chart-line"></i>
-                    <h3>Marketing Digitale</h3>
-                    <p>Strategie di marketing digitale efficaci per aumentare la visibilità del tuo brand, generare lead e crescere il tuo business online.</p>
+                <div class="intro-image hidden">
+                    <i class="fas fa-video"></i>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Team Section -->
-    <section class="team" id="team">
+    <!-- Grafici e Dati -->
+    <section class="charts" id="charts">
         <div class="container">
-            <h2 class="hidden">Il Nostro Team</h2>
-            <div class="team-grid">
-                <div class="team-member hidden">
-                    <div class="member-img">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <h3 class="member-name">Mario Rossi</h3>
-                    <p class="member-role">CEO & Fondatore</p>
-                    <p>Descrizione del team member. Esperto con 10+ anni nel settore.</p>
+            <h2 class="hidden">Dati e Statistiche</h2>
+            <div class="chart-container">
+                <div class="chart-box hidden">
+                    <div class="chart-title">Riduzione criminalità vs Densità telecamere</div>
+                    <canvas id="crimeReductionChart"></canvas>
                 </div>
-                <div class="team-member hidden">
-                    <div class="member-img">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <h3 class="member-name">Laura Bianchi</h3>
-                    <p class="member-role">Designer</p>
-                    <p>Descrizione del team member. Specializzata in UI/UX design.</p>
+                <div class="chart-box hidden">
+                    <div class="chart-title">Costo-beneficio sistemi di sorveglianza</div>
+                    <canvas id="costBenefitChart"></canvas>
                 </div>
-                <div class="team-member hidden">
-                    <div class="member-img">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <h3 class="member-name">Andrea Verdi</h3>
-                    <p class="member-role">Sviluppatore</p>
-                    <p>Descrizione del team member. Esperto in React e Node.js.</p>
+                <div class="chart-box hidden">
+                    <div class="chart-title">Tipologie di reati ridotti (%)</div>
+                    <canvas id="crimeTypesChart"></canvas>
                 </div>
-                <div class="team-member hidden">
-                    <div class="member-img">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <h3 class="member-name">Giulia Neri</h3>
-                    <p class="member-role">Marketing Manager</p>
-                    <p>Descrizione del team member. Specialista in social media marketing.</p>
+                <div class="chart-box hidden">
+                    <div class="chart-title">Confronto internazionale efficacia</div>
+                    <canvas id="internationalChart"></canvas>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials" id="testimonials">
+    <!-- Sezione Cina -->
+    <section class="china" id="china">
         <div class="container">
-            <h2 class="hidden">Cosa Dicono di Noi</h2>
-            <div class="testimonial-slider">
-                <div class="testimonial hidden">
-                    <p class="testimonial-text">"Professionalità e competenza eccezionali. Il team ha trasformato completamente la nostra presenza online, con risultati straordinari in termini di lead generation."</p>
-                    <p class="testimonial-author">- Alessandro Conti, CEO di Azienda XYZ</p>
+            <h2 class="hidden">Il Modello Cinese</h2>
+            <div class="china-content">
+                <div class="hidden">
+                    <h3>Il sistema di sorveglianza più avanzato al mondo</h3>
+                    <p>La Cina ha implementato il più vasto sistema di sorveglianza al mondo, con oltre 600 milioni di telecamere collegate a sistemi di intelligenza artificiale in grado di riconoscere volti, targhe e comportamenti sospetti.</p>
+                    <p>Nelle principali città cinesi, il sistema di credito sociale integra i dati delle telecamere con altre informazioni per valutare il comportamento dei cittadini. Questo approccio ha portato a risultati straordinari in termini di sicurezza pubblica.</p>
                 </div>
-                <div class="testimonial hidden">
-                    <p class="testimonial-text">"Sito web realizzato in tempi record e superando ogni aspettativa. Consiglio i loro servizi a qualsiasi impresa che voglia crescere nel digitale."</p>
-                    <p class="testimonial-author">- Elena Santori, Marketing Manager</p>
+                
+                <div class="china-stats">
+                    <div class="stat-item hidden">
+                        <div class="stat-number">-40%</div>
+                        <div class="stat-label">Criminalità a Pechino (2015-2022)</div>
+                    </div>
+                    <div class="stat-item hidden">
+                        <div class="stat-number">92%</div>
+                        <div class="stat-label">Casi risolti con video-sorveglianza</div>
+                    </div>
+                    <div class="stat-number hidden">
+                        <div class="stat-number">1 ogni 4</div>
+                        <div class="stat-label">Telecamere mondiali è in Cina</div>
+                    </div>
+                    <div class="stat-item hidden">
+                        <div class="stat-number">600M+</div>
+                        <div class="stat-label">Telecamere di sorveglianza</div>
+                    </div>
+                </div>
+                
+                <div class="hidden">
+                    <h3>Risultati tangibili nella lotta al crimine</h3>
+                    <p>Nella città di Shenzhen, l'implementazione massiccia di telecamere con riconoscimento facciale ha ridotto i reati contro la proprietà del 65% in soli tre anni. Il tempo medio di identificazione e arresto di un sospettato è sceso da 7 giorni a meno di 30 minuti.</p>
+                    <p>Il sistema è particolarmente efficace nel prevenire reati minori e nel garantire l'ordine pubblico durante eventi di massa, dove milioni di persone possono essere monitorate in tempo reale.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sezione AI -->
+    <section class="ai-system" id="ai">
+        <div class="container">
+            <h2 class="hidden">Gestione Centralizzata con AI</h2>
+            <div class="ai-content">
+                <div class="ai-text hidden">
+                    <h3>L'intelligenza artificiale nella sorveglianza</h3>
+                    <p>I moderni sistemi di sorveglianza non si limitano a registrare immagini, ma utilizzano algoritmi di intelligenza artificiale per analizzare i video in tempo reale. Questi sistemi possono identificare comportamenti sospetti, riconoscere volti e targhe, e persino prevedere potenziali situazioni di pericolo.</p>
+                    <p>In Cina, il sistema "Sharp Eyes" collega le telecamere di sorveglianza pubbliche e private in un'unica rete nazionale, analizzando i dati attraverso centri di elaborazione centralizzati.</p>
+                    <p>L'AI permette di filtrare milioni di ore di video per identificare eventi rilevanti, riducendo drasticamente il bisogno di supervisione umana e permettendo una risposta più tempestiva alle emergenze.</p>
+                </div>
+                <div class="ai-image hidden">
+                    <i class="fas fa-brain"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sezione Italia -->
+    <section class="italy" id="italy">
+        <div class="container">
+            <h2 class="hidden">Prospettive per l'Italia</h2>
+            <div class="italy-content">
+                <div class="hidden">
+                    <h3>Potenzialità di applicazione in Italia</h3>
+                    <p>L'Italia potrebbe trarre significativi benefici da un sistema di sorveglianza moderno e integrato. Secondo le proiezioni, un investimento mirato potrebbe ridurre la criminalità nelle aree urbane del 25-30% nei primi 5 anni.</p>
+                    <p>I costi di implementazione sarebbero compensati dal risparmio sui danni da criminalità, che in Italia ammontano a circa 25 miliardi di euro annui, e dall'aumento della percezione di sicurezza che favorisce attività commerciali e turismo.</p>
+                </div>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Aspect</th>
+                            <th>Scenario Attuale</th>
+                            <th>Scenario con Sorveglianza Potenziata</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hidden">
+                            <td>Tasso di risoluzione furti</td>
+                            <td>18%</td>
+                            <td>55% (proiezione)</td>
+                        </tr>
+                        <tr class="hidden">
+                            <td>Costi criminalità/anno</td>
+                            <td>25 mld €</td>
+                            <td>16-18 mld € (proiezione)</td>
+                        </tr>
+                        <tr class="hidden">
+                            <td>Telecamere pubbliche</td>
+                            <td>~1.000.000</td>
+                            <td>~2.500.000 (obiettivo)</td>
+                        </tr>
+                        <tr class="hidden">
+                            <td>Tempo medio identificazione autori</td>
+                            <td>7-10 giorni</td>
+                            <td>12-24 ore (proiezione)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="hidden">
+                    <h3>Vantaggi e criticità per il contesto italiano</h3>
+                    <p>Oltre alla riduzione della criminalità, un sistema di sorveglianza moderno potrebbe:</p>
+                    <ul>
+                        <li>Migliorare la gestione del traffico e ridurre gli incidenti stradali</li>
+                        <li>Ottimizzare i servizi di emergenza con risposte più tempestive</li>
+                        <li>Fornire dati preziosi per la pianificazione urbana</li>
+                    </ul>
+                    <p>Le principali sfide riguardano la protezione dei dati personali, il quadro normativo e l'accettazione pubblica, che richiederebbero un dibattito trasparente e soluzioni tecniche robuste per garantire il rispetto della privacy.</p>
                 </div>
             </div>
         </div>
@@ -730,28 +833,28 @@
     <!-- Contact Section -->
     <section class="contact" id="contact">
         <div class="container">
-            <h2 class="hidden">Contattaci</h2>
+            <h2 class="hidden">Contatti</h2>
             <div class="contact-container">
                 <div class="contact-info">
                     <div class="info-item hidden">
-                        <i class="fas fa-map-marker-alt"></i>
+                        <i class="fas fa-info-circle"></i>
                         <div>
-                            <h3>Dove Siamo</h3>
-                            <p>Via Roma 123, 00100 Milano MI</p>
-                        </div>
-                    </div>
-                    <div class="info-item hidden">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <h3>Telefono</h3>
-                            <p>+39 012 345 6789</p>
+                            <h3>Per maggiori informazioni</h3>
+                            <p>Scarica il report completo sui sistemi di sorveglianza e il loro impatto sulla criminalità</p>
                         </div>
                     </div>
                     <div class="info-item hidden">
                         <i class="fas fa-envelope"></i>
                         <div>
                             <h3>Email</h3>
-                            <p>info@iltuobrand.com</p>
+                            <p>info@sorveglianza-sicurezza.it</p>
+                        </div>
+                    </div>
+                    <div class="info-item hidden">
+                        <i class="fas fa-balance-scale"></i>
+                        <div>
+                            <h3>Aspetti legali</h3>
+                            <p>Consulta la nostra guida sulla normativa privacy e sorveglianza in Italia</p>
                         </div>
                     </div>
                 </div>
@@ -766,10 +869,10 @@
                             <input type="email" id="email" placeholder="La tua email" required>
                         </div>
                         <div class="form-group hidden">
-                            <label for="message">Messaggio</label>
-                            <textarea id="message" placeholder="Il tuo messaggio" required></textarea>
+                            <label for="message">Richiesta di informazioni</label>
+                            <textarea id="message" placeholder="Scrivi il tuo messaggio" required></textarea>
                         </div>
-                        <button type="submit" class="btn hidden">Invia Messaggio</button>
+                        <button type="submit" class="btn hidden">Richiedi Informazioni</button>
                     </form>
                 </div>
             </div>
@@ -781,11 +884,10 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section hidden">
-                    <h3>Il Tuo Brand</h3>
-                    <p>Soluzioni digitali innovative per far crescere il tuo business online e raggiungere nuovi traguardi.</p>
+                    <h3>Sorveglianza e Sicurezza</h3>
+                    <p>Analisi dati e prospettive sui sistemi di videosorveglianza moderna e il loro impatto sulla criminalità.</p>
                     <div class="social-icons">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
                         <a href="#"><i class="fab fa-linkedin-in"></i></a>
                     </div>
@@ -793,28 +895,25 @@
                 <div class="footer-section hidden">
                     <h3>Link Utili</h3>
                     <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">Chi Siamo</a></li>
-                        <li><a href="#services">Servizi</a></li>
-                        <li><a href="#team">Team</a></li>
-                        <li><a href="#testimonials">Testimonial</a></li>
-                        <li><a href="#contact">Contatti</a></li>
+                        <li><a href="#intro">Introduzione</a></li>
+                        <li><a href="#charts">Dati e Statistiche</a></li>
+                        <li><a href="#china">Caso Cinese</a></li>
+                        <li><a href="#ai">Sistemi AI</a></li>
+                        <li><a href="#italy">Prospettive Italia</a></li>
                     </ul>
                 </div>
                 <div class="footer-section hidden">
-                    <h3>I Nostri Servizi</h3>
+                    <h3>Risorse</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Web Design</a></li>
-                        <li><a href="#">Sviluppo Web</a></li>
-                        <li><a href="#">App Mobile</a></li>
-                        <li><a href="#">Marketing Digitale</a></li>
-                        <li><a href="#">SEO</a></li>
-                        <li><a href="#">Brand Identity</a></li>
+                        <li><a href="#">Report Completo</a></li>
+                        <li><a href="#">Dati Statistici</a></li>
+                        <li><a href="#">Normativa Privacy</a></li>
+                        <li><a href="#">Case Studies</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2023 Il Tuo Brand. Tutti i diritti riservati.</p>
+                <p>&copy; 2023 Sorveglianza e Sicurezza. Tutti i diritti riservati.</p>
             </div>
         </div>
     </footer>
@@ -857,6 +956,65 @@
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
-    </script>
-</body>
-</html>
+        
+        // Grafico 1: Riduzione criminalità vs Densità telecamere
+        const crimeReductionCtx = document.getElementById('crimeReductionChart').getContext('2d');
+        const crimeReductionChart = new Chart(crimeReductionCtx, {
+            type: 'line',
+            data: {
+                labels: ['Bassa', 'Media', 'Alta', 'Molto Alta'],
+                datasets: [{
+                    label: 'Riduzione criminalità (%)',
+                    data: [10, 25, 35, 40],
+                    borderColor: '#3498db',
+                    backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                    fill: true,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Riduzione criminalità in base alla densità di telecamere'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Riduzione criminalità (%)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Densità telecamere'
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Grafico 2: Costo-beneficio
+        const costBenefitCtx = document.getElementById('costBenefitChart').getContext('2d');
+        const costBenefitChart = new Chart(costBenefitCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Anno 1', 'Anno 2', 'Anno 3', 'Anno 4', 'Anno 5'],
+                datasets: [
+                    {
+                        label: 'Costi (milioni €)',
+                        data: [80, 40, 30, 25, 20],
+                        backgroundColor: 'rgba(231, 76, 60, 0.7)'
+                    },
+                    {
+                        label: 'Risparmi (milioni €)',
+                        data: [20, 45, 70, 90, 110],
+                        backgroundColor: 'rgba(46, 204, 113, 0.7)'
+                    }
+                ]
+            },
+            options: {
