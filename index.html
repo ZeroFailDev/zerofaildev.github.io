@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sito Modulare Personalizzabile</title>
+    <title>Sito Modulare con Animazioni</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Reset e stili generali */
         * {
@@ -13,10 +14,22 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #f9f9f9;
+            --dark-color: #333;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
         body {
             line-height: 1.6;
-            color: #333;
-            background-color: #f9f9f9;
+            color: var(--dark-color);
+            background-color: var(--light-color);
         }
         
         .container {
@@ -26,13 +39,70 @@
             padding: 0 20px;
         }
         
+        section {
+            padding: 100px 0;
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--secondary-color);
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+        
+        h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+        
+        p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        /* Animazioni */
+        .hidden {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s;
+        }
+        
+        .show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
         /* Header e navigazione */
         header {
             background-color: #fff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+        
+        header.scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
         }
         
         nav {
@@ -43,9 +113,16 @@
         }
         
         .logo {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 700;
-            color: #2c3e50;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--primary-color);
         }
         
         .nav-links {
@@ -59,60 +136,85 @@
         
         .nav-links a {
             text-decoration: none;
-            color: #2c3e50;
+            color: var(--secondary-color);
             font-weight: 500;
             transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s;
         }
         
         .nav-links a:hover {
-            color: #3498db;
+            color: var(--primary-color);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
         }
         
         /* Hero Section */
         .hero {
-            padding: 100px 0;
+            padding: 160px 0 100px;
             text-align: center;
-            background-color: #3498db;
+            background: linear-gradient(135deg, var(--primary-color), #2c3e50);
             color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         
         .hero h1 {
-            font-size: 48px;
+            font-size: 3.5rem;
             margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
         }
         
         .hero p {
-            font-size: 20px;
-            max-width: 700px;
-            margin: 0 auto 30px;
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
         }
         
         .btn {
             display: inline-block;
             background-color: #fff;
-            color: #3498db;
-            padding: 12px 30px;
-            border-radius: 30px;
+            color: var(--primary-color);
+            padding: 15px 40px;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid transparent;
         }
         
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            background-color: var(--primary-color);
+            color: white;
         }
         
-        /* Sezioni generiche */
-        section {
-            padding: 80px 0;
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+            margin-left: 15px;
         }
         
-        section h2 {
-            text-align: center;
-            font-size: 36px;
-            margin-bottom: 50px;
-            color: #2c3e50;
+        .btn-outline:hover {
+            background-color: white;
+            color: var(--primary-color);
         }
         
         /* About Section */
@@ -132,13 +234,20 @@
         
         .about-image {
             flex: 1;
-            height: 300px;
-            background-color: #eee;
+            height: 400px;
+            background: linear-gradient(45deg, #e0e0e0, #f0f0f0);
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #999;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .about-image i {
+            font-size: 5rem;
+            color: var(--primary-color);
         }
         
         /* Services Section */
@@ -154,30 +263,147 @@
         
         .service-card {
             background-color: #fff;
-            padding: 30px;
+            padding: 40px 30px;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+            text-align: center;
         }
         
         .service-card:hover {
             transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-card i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
         }
         
         .service-card h3 {
-            font-size: 22px;
+            font-size: 1.5rem;
             margin-bottom: 15px;
-            color: #2c3e50;
+        }
+        
+        /* Team Section */
+        .team {
+            background-color: #fff;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .team-member {
+            text-align: center;
+            padding: 30px;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+            transition: all 0.3s;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .member-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .member-img i {
+            font-size: 4rem;
+            color: var(--primary-color);
+        }
+        
+        .member-name {
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .member-role {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            background: linear-gradient(to right, #2c3e50, #4a6580);
+            color: white;
+        }
+        
+        .testimonials h2 {
+            color: white;
+        }
+        
+        .testimonials h2::after {
+            background-color: white;
+        }
+        
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .testimonial {
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .testimonial-author {
+            font-weight: 700;
         }
         
         /* Contact Section */
         .contact {
-            background-color: #fff;
+            background-color: #f8f9fa;
+        }
+        
+        .contact-container {
+            display: flex;
+            gap: 50px;
+        }
+        
+        .contact-info {
+            flex: 1;
         }
         
         .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
+            flex: 1;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .info-item i {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-right: 15px;
+            width: 30px;
         }
         
         .form-group {
@@ -186,46 +412,96 @@
         
         .form-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: 500;
         }
         
         .form-group input,
         .form-group textarea {
             width: 100%;
-            padding: 12px;
+            padding: 15px;
             border: 1px solid #ddd;
             border-radius: 5px;
-            font-size: 16px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
         }
         
         .form-group textarea {
             min-height: 150px;
+            resize: vertical;
         }
         
         /* Footer */
         footer {
-            background-color: #2c3e50;
+            background-color: var(--secondary-color);
             color: #fff;
-            padding: 50px 0 20px;
+            padding: 70px 0 20px;
         }
         
         .footer-content {
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
-            margin-bottom: 30px;
+            margin-bottom: 50px;
         }
         
         .footer-section {
             flex: 1;
-            min-width: 200px;
+            min-width: 250px;
             margin-bottom: 30px;
         }
         
         .footer-section h3 {
-            font-size: 18px;
+            font-size: 1.5rem;
             margin-bottom: 20px;
+            color: white;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
         }
         
         .footer-bottom {
@@ -234,36 +510,105 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 999;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+        
         /* Responsive */
-        @media (max-width: 768px) {
+        @media (max-width: 992px) {
             .about-content {
                 flex-direction: column;
             }
             
+            .contact-container {
+                flex-direction: column;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
             .nav-links {
                 display: none;
             }
             
             .hero h1 {
-                font-size: 36px;
+                font-size: 2.3rem;
             }
             
             .hero p {
-                font-size: 18px;
+                font-size: 1.1rem;
+            }
+            
+            .btn-container {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn {
+                margin: 0;
+            }
+            
+            h2 {
+                font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Back to top button -->
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
     <!-- Header -->
-    <header>
+    <header id="header">
         <div class="container">
             <nav>
-                <div class="logo">Il Tuo Logo</div>
+                <div class="logo">
+                    <i class="fas fa-rocket"></i>
+                    <span>Il Tuo Brand</span>
+                </div>
                 <ul class="nav-links">
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">Chi Siamo</a></li>
                     <li><a href="#services">Servizi</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#testimonials">Testimonial</a></li>
                     <li><a href="#contact">Contatti</a></li>
                 </ul>
             </nav>
@@ -273,24 +618,28 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container">
-            <h1>Benvenuto nel nostro sito</h1>
-            <p>Un template pulito e professionale che puoi personalizzare facilmente con i tuoi contenuti.</p>
-            <a href="#contact" class="btn">Scopri di più</a>
+            <h1 class="hidden">Crea il Tuo Futuro con Noi</h1>
+            <p class="hidden">Un template pulito e professionale che puoi personalizzare facilmente con i tuoi contenuti.</p>
+            <div class="btn-container">
+                <a href="#contact" class="btn hidden">Inizia Ora</a>
+                <a href="#about" class="btn btn-outline hidden">Scopri di Più</a>
+            </div>
         </div>
     </section>
 
     <!-- About Section -->
     <section class="about" id="about">
         <div class="container">
-            <h2>Chi Siamo</h2>
+            <h2 class="hidden">Chi Siamo</h2>
             <div class="about-content">
-                <div class="about-text">
-                    <h3>La nostra storia</h3>
+                <div class="about-text hidden">
+                    <h3>La Nostra Storia</h3>
                     <p>Questo è un testo di esempio che puoi sostituire con la descrizione della tua azienda, della tua attività o di te stesso. Racconta la tua storia, la tua missione e i tuoi valori.</p>
                     <p>Puoi modificare questo contenuto con qualsiasi testo desideri. Aggiungi dettagli rilevanti che possano interessare i tuoi visitatori e farli sentire connessi con il tuo brand.</p>
+                    <p>Non aver paura di condividere i tuoi successi e le tue sfide. I clienti apprezzano la trasparenza e l'autenticità.</p>
                 </div>
-                <div class="about-image">
-                    [Immagine o foto da inserire]
+                <div class="about-image hidden">
+                    <i class="fas fa-lightbulb"></i>
                 </div>
             </div>
         </div>
@@ -299,19 +648,80 @@
     <!-- Services Section -->
     <section class="services" id="services">
         <div class="container">
-            <h2>I Nostri Servizi</h2>
+            <h2 class="hidden">I Nostri Servizi</h2>
             <div class="services-grid">
-                <div class="service-card">
-                    <h3>Servizio 1</h3>
-                    <p>Descrizione del primo servizio che offri. Spiega in modo chiaro e conciso cosa fai e quali benefici apporta ai tuoi clienti.</p>
+                <div class="service-card hidden">
+                    <i class="fas fa-paint-brush"></i>
+                    <h3>Web Design</h3>
+                    <p>Creazione di siti web moderni, responsive e accattivanti che rappresentano perfettamente il tuo brand e attirano i tuoi clienti ideali.</p>
                 </div>
-                <div class="service-card">
-                    <h3>Servizio 2</h3>
-                    <p>Descrizione del secondo servizio. Anche qui, personalizza il testo per riflettere accuratamente ciò che offri.</p>
+                <div class="service-card hidden">
+                    <i class="fas fa-code"></i>
+                    <h3>Sviluppo Web</h3>
+                    <p>Sviluppo di applicazioni web personalizzate e funzionali, con tecnologie all'avanguardia e soluzioni scalabili per le tue esigenze.</p>
                 </div>
-                <div class="service-card">
-                    <h3>Servizio 3</h3>
-                    <p>Descrizione del terzo servizio. Modifica questo contenuto per adattarlo alla tua offerta di servizi o prodotti.</p>
+                <div class="service-card hidden">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Marketing Digitale</h3>
+                    <p>Strategie di marketing digitale efficaci per aumentare la visibilità del tuo brand, generare lead e crescere il tuo business online.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team" id="team">
+        <div class="container">
+            <h2 class="hidden">Il Nostro Team</h2>
+            <div class="team-grid">
+                <div class="team-member hidden">
+                    <div class="member-img">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="member-name">Mario Rossi</h3>
+                    <p class="member-role">CEO & Fondatore</p>
+                    <p>Descrizione del team member. Esperto con 10+ anni nel settore.</p>
+                </div>
+                <div class="team-member hidden">
+                    <div class="member-img">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="member-name">Laura Bianchi</h3>
+                    <p class="member-role">Designer</p>
+                    <p>Descrizione del team member. Specializzata in UI/UX design.</p>
+                </div>
+                <div class="team-member hidden">
+                    <div class="member-img">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="member-name">Andrea Verdi</h3>
+                    <p class="member-role">Sviluppatore</p>
+                    <p>Descrizione del team member. Esperto in React e Node.js.</p>
+                </div>
+                <div class="team-member hidden">
+                    <div class="member-img">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="member-name">Giulia Neri</h3>
+                    <p class="member-role">Marketing Manager</p>
+                    <p>Descrizione del team member. Specialista in social media marketing.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="hidden">Cosa Dicono di Noi</h2>
+            <div class="testimonial-slider">
+                <div class="testimonial hidden">
+                    <p class="testimonial-text">"Professionalità e competenza eccezionali. Il team ha trasformato completamente la nostra presenza online, con risultati straordinari in termini di lead generation."</p>
+                    <p class="testimonial-author">- Alessandro Conti, CEO di Azienda XYZ</p>
+                </div>
+                <div class="testimonial hidden">
+                    <p class="testimonial-text">"Sito web realizzato in tempi record e superando ogni aspettativa. Consiglio i loro servizi a qualsiasi impresa che voglia crescere nel digitale."</p>
+                    <p class="testimonial-author">- Elena Santori, Marketing Manager</p>
                 </div>
             </div>
         </div>
@@ -320,21 +730,48 @@
     <!-- Contact Section -->
     <section class="contact" id="contact">
         <div class="container">
-            <h2>Contattaci</h2>
-            <div class="contact-form">
-                <div class="form-group">
-                    <label for="name">Nome</label>
-                    <input type="text" id="name" placeholder="Il tuo nome">
+            <h2 class="hidden">Contattaci</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="info-item hidden">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Dove Siamo</h3>
+                            <p>Via Roma 123, 00100 Milano MI</p>
+                        </div>
+                    </div>
+                    <div class="info-item hidden">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h3>Telefono</h3>
+                            <p>+39 012 345 6789</p>
+                        </div>
+                    </div>
+                    <div class="info-item hidden">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>Email</h3>
+                            <p>info@iltuobrand.com</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" placeholder="La tua email">
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group hidden">
+                            <label for="name">Nome</label>
+                            <input type="text" id="name" placeholder="Il tuo nome" required>
+                        </div>
+                        <div class="form-group hidden">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" placeholder="La tua email" required>
+                        </div>
+                        <div class="form-group hidden">
+                            <label for="message">Messaggio</label>
+                            <textarea id="message" placeholder="Il tuo messaggio" required></textarea>
+                        </div>
+                        <button type="submit" class="btn hidden">Invia Messaggio</button>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="message">Messaggio</label>
-                    <textarea id="message" placeholder="Il tuo messaggio"></textarea>
-                </div>
-                <button type="submit" class="btn">Invia Messaggio</button>
             </div>
         </div>
     </section>
@@ -343,30 +780,83 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Contatti</h3>
-                    <p>Indirizzo: Il tuo indirizzo</p>
-                    <p>Telefono: Il tuo numero</p>
-                    <p>Email: la tua email</p>
+                <div class="footer-section hidden">
+                    <h3>Il Tuo Brand</h3>
+                    <p>Soluzioni digitali innovative per far crescere il tuo business online e raggiungere nuovi traguardi.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
                 </div>
-                <div class="footer-section">
+                <div class="footer-section hidden">
                     <h3>Link Utili</h3>
-                    <p><a href="#home">Home</a></p>
-                    <p><a href="#about">Chi Siamo</a></p>
-                    <p><a href="#services">Servizi</a></p>
-                    <p><a href="#contact">Contatti</a></p>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">Chi Siamo</a></li>
+                        <li><a href="#services">Servizi</a></li>
+                        <li><a href="#team">Team</a></li>
+                        <li><a href="#testimonials">Testimonial</a></li>
+                        <li><a href="#contact">Contatti</a></li>
+                    </ul>
                 </div>
-                <div class="footer-section">
-                    <h3>Seguici</h3>
-                    <p>Facebook</p>
-                    <p>Instagram</p>
-                    <p>Twitter</p>
+                <div class="footer-section hidden">
+                    <h3>I Nostri Servizi</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Web Design</a></li>
+                        <li><a href="#">Sviluppo Web</a></li>
+                        <li><a href="#">App Mobile</a></li>
+                        <li><a href="#">Marketing Digitale</a></li>
+                        <li><a href="#">SEO</a></li>
+                        <li><a href="#">Brand Identity</a></li>
+                    </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2023 Il Tuo Nome/Tuo Brand. Tutti i diritti riservati.</p>
+                <p>&copy; 2023 Il Tuo Brand. Tutti i diritti riservati.</p>
             </div>
         </div>
     </footer>
+
+    <script>
+        // Animazione elementi al scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        });
+        
+        const hiddenElements = document.querySelectorAll('.hidden');
+        hiddenElements.forEach((el) => observer.observe(el));
+        
+        // Header che cambia al scroll
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Bottone back to top
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
 </body>
 </html>
