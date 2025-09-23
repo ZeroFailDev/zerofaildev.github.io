@@ -1,0 +1,374 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #305060;
+  margin: 0;
+}
+
+header {
+  background-color: #ffffff;   /* bianco */
+  width: 100%;
+}
+
+
+
+
+/* ===== FOOTER ===== */
+.site-footer {
+  background-color: #1a2a3a;
+  color: white;
+  padding: 30px 0;
+  margin-top: 60px;
+  border-top: 2px solid #4facfe;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.footer-content p {
+  margin: 5px 0;
+  line-height: 1.4;
+}
+
+
+
+
+
+/* Titolo + immagine logo a sinistra */
+#logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;                   /* spazio tra immagine e testo */
+  font-size: 1.8em;
+  font-weight: 700;
+  color: black;                /* titolo nero */
+}
+
+.navbar {
+  max-width: 1200px;           /* limite massimo larghezza */
+  margin: 0 auto;              /* centra il contenuto */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 50px;          /* più spazio ai lati */
+}
+
+/* Lista dei link */
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 30px;                   /* spazio tra i link */
+  margin: 0;
+  padding: 0;
+}
+
+/* Stile dei link */
+.navbar a {
+  text-decoration: none;
+  color: black;                /* link neri */
+  font-size: 1.1em;
+  font-weight: 500;
+  display: inline-block;        /* serve per far funzionare transform */
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Hover con effetto zoom */
+.navbar a:hover {
+  opacity: 0.7;
+  transform: scale(1.2);
+}
+
+
+
+
+/* ===== INDICE ===== */
+
+/* Contenitore centrale */
+.index_content {
+  display: flex;
+  flex-direction: column;   /* impila immagine, titolo e paragrafo */
+  align-items: center;      /* centra orizzontalmente */
+  justify-content: center;  /* centra verticalmente */
+  text-align: center;       /* testo allineato al centro */
+  padding: 60px 20px;       /* spazio interno */
+  color: white;             /* testo bianco */
+}
+
+/* Stile immagine */
+.index_content img {
+  width: 500px;             /* dimensione immagine */
+  height: auto;             /* mantiene proporzioni */
+  border-radius: 15px;      /* bordi arrotondati */
+  margin-bottom: 20px;      /* spazio sotto l'immagine */
+}
+
+/* Titolo */
+.index_content h1 {
+  font-size: 2.2em;
+  margin-bottom: 10px;
+}
+
+/* Paragrafo */
+.index_content p {
+  font-size: 1.2em;
+  max-width: 800px;         /* larghezza massima del testo */
+  line-height: 1.5;
+}
+
+
+
+
+/* ===== BOTTONI DELL'INDICE ===== */
+/* Contenitore bottoni */
+.button-group {
+  display: flex;
+  justify-content: center;  /* centra i bottoni */
+  gap: 20px;                /* spazio tra i bottoni */
+  margin-top: 30px;         /* spazio sopra i bottoni */
+}
+
+/* Stile bottoni */
+.btn {
+  display: inline-block;
+  padding: 12px 28px;
+  background-color: transparent;   /* sfondo inizialmente trasparente */
+  color: white;                    /* testo bianco */
+  font-weight: 600;
+  font-size: 1.1em;
+  text-decoration: none;
+  border-radius: 40px;
+  border: 2px solid white;         /* bordo bianco */
+  transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Hover effetto */
+.btn:hover {
+  transform: scale(1.1);
+  background-color: white;         /* sfondo bianco */
+  color: black;                    /* testo nero */
+}
+
+
+
+
+/* ===== INTRODUZIONE ===== */
+.intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 10vh;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.intro h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.intro-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    max-width: 1200px;
+    margin-top: 20px;
+}
+
+.text-container {
+    background-image: url("../img/glass_effect.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 15px;
+    padding: 25px;
+    flex: 1;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.text-container:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.intro h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #ffffff;
+    transition: transform 0.3s ease;
+}
+
+.intro h2:hover {
+    transform: scale(1.03);
+}
+
+.intro p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    text-align: left;
+    transition: transform 0.3s ease;
+}
+
+.intro p:hover {
+    transform: scale(1.01);
+}
+
+.intro img {
+    border-radius: 10px;
+    max-width: 500px;
+    height: auto;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    flex-shrink: 0;
+    margin-top: 130px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.intro img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+
+
+
+
+/* ===== PAGINA DATI E STATISTICHE ===== */
+
+.dati {
+  color: white;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.dati h1 {
+  text-align: center;
+  font-size: 2.8rem;
+  margin-bottom: 40px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.intro-section {
+  text-align: left;
+  margin-bottom: 40px;
+  max-width: 800px;
+}
+
+.intro-section h2 {
+  font-size: 2.2rem;
+  margin-bottom: 15px;
+  color: #ffffff;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.crime-table-container {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 30px;
+  margin: 40px 0;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.crime-table-container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+  color: #4facfe;
+}
+
+.crime-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.crime-table th {
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  padding: 18px 15px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #0d1b2a;
+}
+
+.crime-table td {
+  padding: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.crime-table tr:hover td {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateX(5px);
+}
+
+.reduction {
+  font-weight: bold;
+  color: #4CAF50;
+}
+
+.china-row {
+  background: rgba(79, 172, 254, 0.1);
+  border-left: 4px solid #4facfe;
+}
+
+.china-row td:first-child {
+  font-weight: 600;
+  color: #4facfe;
+}
+
+.reduction.china {
+  color: #00e676;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.table-note {
+  margin-top: 25px;
+  padding: 15px;
+  background: rgba(79, 172, 254, 0.1);
+  border-radius: 8px;
+  border-left: 4px solid #4facfe;
+  text-align: center;
+}
+
+.images-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 50px;
+  flex-wrap: wrap;
+}
+
+.images-container img {
+  border-radius: 15px;
+  max-width: 45%;
+  height: auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.images-container img:hover {
+  transform: scale(1.05);
+}
