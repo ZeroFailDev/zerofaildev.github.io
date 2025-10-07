@@ -76,7 +76,7 @@ body {
     font-size: 1.1em;
     font-weight: 500;
     display: inline-block;        /* serve per far funzionare transform */
-    transition: transform 0.2s ease, opacity 0.2s ease;
+    transition: transform 0.2s ease, opacity 0.2s ease;        /* ease è il tipo di animazione con curva di velocità */
   }
   
   /* hover con effetto zoom */
@@ -706,7 +706,6 @@ body {
     .italia-main-img {
       margin-top: 0;
       max-width: 100%;
-      order: -1;
     }
     
     .text-container {
