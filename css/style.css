@@ -146,64 +146,51 @@ body {
 
 
 
-/* ===== SLIDESHOW BANNER ===== */
+/* ===== SLIDESHOW BANNER CSS-ONLY ===== */
 .slideshow-container {
+  position: relative;
   max-width: 1200px;
-  margin: 30px auto; /* spazio sopra e sotto */
+  margin: 30px auto;
   height: 400px;
-  overflow: hidden;  /* mostra solo l'immagine corrente */
+  overflow: hidden;
   border-radius: 15px;
 }
 
 .slides {
-  width: 600%; /* 100% per ogni slide (6 slides = 600%) */
+  width: 600%;
   height: 100%;
   display: flex;
   animation: slideAnimation 30s infinite ease-in-out;
 }
 
 .slide {
-  width: 16.666%; /* ogni slide occupa 1/6 del container (100% ÷ 6) */
+  width: 16.666%;
   height: 100%;
+  flex-shrink: 0;
 }
 
 .slide img {
   width: 100%;
   height: 100%;
-  object-fit: cover;  /* ritaglia le immagini senza mostrarle schiacciate */
+  object-fit: cover;
   object-position: center;
+  display: block;
 }
 
-/* animazione del slideshow per 6 immagini */
 @keyframes slideAnimation {
-  0%, 14% {
-    transform: translateX(0); /* prima slide */
-  }
-  16%, 30% {
-    transform: translateX(-16.666%); /* seconda slide */
-  }
-  32%, 46% {
-    transform: translateX(-33.333%); /* terza slide */
-  }
-  48%, 62% {
-    transform: translateX(-50%); /* quarta slide */
-  }
-  64%, 78% {
-    transform: translateX(-66.666%); /* quinta slide */
-  }
-  80%, 94% {
-    transform: translateX(-83.333%); /* sesta slide */
-  }
-  96%, 100% {
-    transform: translateX(0); /* ritorno alla prima */
-  }
+  0%, 14% { transform: translateX(0); }
+  16%, 30% { transform: translateX(-16.666%); }
+  32%, 46% { transform: translateX(-33.333%); }
+  48%, 62% { transform: translateX(-50%); }
+  64%, 78% { transform: translateX(-66.666%); }
+  80%, 94% { transform: translateX(-83.333%); }
+  96%, 100% { transform: translateX(0); }
 }
 
 /* Responsive Design */
 @media (max-width: 1200px) {
   .slideshow-container {
     margin: 30px 20px;
-    border-radius: 15px;
   }
 }
 
@@ -211,22 +198,24 @@ body {
   .slideshow-container {
     height: 300px;
     margin: 20px 15px;
-    border-radius: 12px;
-  }
-  
-  .slideshow-container::before {
-    bottom: 10px;
-    font-size: 8px;
-    letter-spacing: 4px;
   }
 }
 
+@media (max-width: 480px) {
+  .slideshow-container {
+    height: 250px;
+    margin: 15px 10px;
+  }
+  
+  .slides {
+    animation-duration: 24s;
+  }
+}
 
 @media (max-width: 360px) {
   .slideshow-container {
     height: 200px;
     margin: 10px;
-    border-radius: 8px;
   }
 }
 
