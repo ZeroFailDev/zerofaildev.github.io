@@ -302,7 +302,7 @@ header {
 
 .crime-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: collapse; /* fonde i bordi delle celle adiacenti di una tabella in un unico bordo, eliminando lo spazio tra di essi */
   background: rgba(255,255,255,0.02);
   border-radius: 10px;
   overflow: hidden; /* taglia e nasconde qualsiasi contenuto che superi i limiti di un elemento */
@@ -674,3 +674,4 @@ h1 {
 @media (max-width: 360px) {
   .slideshow-container { height: 200px; margin: 10px; border-radius: 8px; }
 }
+
