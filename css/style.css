@@ -268,7 +268,7 @@ header {
 .intro-section {
   text-align: left;
   margin-bottom: 40px;
-  max-width: 800px;
+  max-width: 1000px;
 }
 
 .intro-section h2 {
@@ -674,4 +674,5 @@ h1 {
 @media (max-width: 360px) {
   .slideshow-container { height: 200px; margin: 10px; border-radius: 8px; }
 }
+
 
